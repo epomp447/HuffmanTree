@@ -246,8 +246,8 @@ public class Huffman implements Serializable {
 		Scanner inputStream = null;
 		PrintWriter outputStream = null;
 		try {
-			inputStream = new Scanner(new FileInputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\input.txt"));// input
-			//outputStream = new PrintWriter(new FileOutputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\output.txt"));
+			inputStream = new Scanner(new FileInputStream("C:\\..\\...\\src\\input.txt"));// input
+			//outputStream = new PrintWriter(new FileOutputStream("C:\\..\\...\\src\\output.txt"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Problem opening files");
 			// System.exit(0);
