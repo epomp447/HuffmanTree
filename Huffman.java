@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Huffman implements Serializable {
+public class Huffman {
 	public static int n = 26;
 
 	// node class is the basic structure
 	// of each node present in the huffman - tree.
-	public static class HuffmanNode implements Serializable {
+	public static class HuffmanNode  {
 
 		int data;
 		char symbol;
@@ -22,12 +22,34 @@ public class Huffman implements Serializable {
 		HuffmanNode left;
 		HuffmanNode right;
 
-		public int getFreq() {
+		HuffmanNode() {
+			
+		}
+
+		HuffmanNode(char ch, int freq) {
+			this.symbol = ch;
+			this.data = freq;
+		}
+
+		void setSymbol(char ch) {
+			this.symbol = ch;
+		}
+
+		void setFreq(int freq) {
+			this.data = freq;
+		}
+
+		char getSymbol() {
+			return symbol;
+		}
+
+		int getFreq() {
 			return data;
 		}
 
-		public char getSymbol() {
-			return symbol;
+		public String toString() {
+			String STR = "Symbol: " + this.getSymbol() + "\nFrequency: " + this.getFreq();
+			return STR;
 		}
 	}
 
@@ -37,7 +59,6 @@ public class Huffman implements Serializable {
 	// on the basis of data values of the nodes.
 	public static class MyComparator implements Comparator<HuffmanNode> {
 		public int compare(HuffmanNode x, HuffmanNode y) {
-
 			return x.data - y.data;
 		}
 	}
@@ -168,7 +189,7 @@ public class Huffman implements Serializable {
 		}
 		for (int i = 0; i < recs.size(); i++) {
 			weightedAvg = (double) recs.get(i).getFreq() / sumOfWeights;
-			System.out.printf("AVG= " + recs.get(i).getSymbol() + " :   %.2f\n", weightedAvg);
+			System.out.printf("AVG= " + recs.get(i).getSymbol() + " :   %.4f\n", weightedAvg);
 		}
 		for (int i = 0; i < recs.size(); i++) {
 			int len = recs.get(i).getHuffman().length();
@@ -187,7 +208,7 @@ public class Huffman implements Serializable {
 
 	// Function to print binary tree in 2D
 	// It does reverse inorder traversal
-	static void print2DUtil(HuffmanNode root, int space) {
+	static void printTree(HuffmanNode root, int space) {
 		// Base case
 		if (root == null)
 			return;
@@ -196,7 +217,7 @@ public class Huffman implements Serializable {
 		space += COUNT;
 
 		// Process right child first
-		print2DUtil(root.right, space);
+		printTree(root.right, space);
 
 		// Print current node after space
 		// count
@@ -206,90 +227,59 @@ public class Huffman implements Serializable {
 		System.out.printf(root.symbol + ",%d\n", root.data);
 
 		// Process left child
-		print2DUtil(root.left, space);
+		printTree(root.left, space);
 	}
 
-	public static class text {
-		char c;
-		int f;
-
-		text(char ch, int freq) {
-			this.c = ch;
-			this.f = freq;
-		}
-
-		void setSymbol(char ch) {
-			this.c = ch;
-		}
-
-		void setFreq(int freq) {
-			this.f = freq;
-		}
-
-		char getSymbol() {
-			return c;
-		}
-
-		int getFreq() {
-			return f;
-		}
-
-		public String toString() {
-			String STR = "Symbol: " + this.getSymbol() + "\nFrequency: " + this.getFreq();
-			return STR;
-		}
-	}
+	
 
 	// main function/Trees/src/input
 	public static void main(String[] args) {
 
-		Scanner inputStream = null;
-		PrintWriter outputStream = null;
-		try {
-			inputStream = new Scanner(new FileInputStream("C:\\..\\...\\src\\input.txt"));// input
-			//outputStream = new PrintWriter(new FileOutputStream("C:\\..\\...\\src\\output.txt"));
-		} catch (FileNotFoundException e) {
-			System.out.println("Problem opening files");
-			// System.exit(0);
-		}
-		char ch;
-		int freq;
-		ArrayList<text> input = new ArrayList<text>();
-		char[] arrayOfChar = new char[n];
-		int[] arrayOfFreq = new int[n];
-		int count = 0; // variable used to add to ArrayList Input
-		while (inputStream.hasNextLine()) {
-			ch = inputStream.next().charAt(0);
-			freq = inputStream.nextInt();
-			input.add(new text(ch, freq));
-			input.get(count).setSymbol(ch);
-			input.get(count).setFreq(freq);
-			arrayOfChar[count] = ch;
-			arrayOfFreq[count] = freq;
-			//System.out.println(input.get(count).toString());
-			//outputStream.println(input.get(count).toString());
-			count++;
-		}
-		inputStream.close();
-		//outputStream.close();
-		System.out.println(Arrays.toString(arrayOfChar));
-		System.out.println(Arrays.toString(arrayOfFreq));
-		System.out.println(arrayOfFreq.length == arrayOfChar.length);
-		PriorityQueue<HuffmanNode> huffPQ2 = huff(arrayOfChar, arrayOfFreq, n);
+//		Scanner inputStream = null;
+//		PrintWriter outputStream = null;
+//		try {
+//			inputStream = new Scanner(new FileInputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\input(2).txt"));// input
+//			//outputStream = new PrintWriter(new FileOutputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\output.txt"));
+//		} catch (FileNotFoundException e) {
+//			System.out.println("Problem opening files");
+//			 System.exit(0);
+//		}
+//		char ch;
+//		int freq;
+//		ArrayList<HuffmanNode> input = new ArrayList<HuffmanNode>();
+//		char[] arrayOfChar = new char[n];
+//		int[] arrayOfFreq = new int[n];
+//		int count = 0; // variable used to add to ArrayList Input
+//		while (inputStream.hasNextLine()) {
+//			ch = inputStream.next().charAt(0);
+//			freq = inputStream.nextInt();
+//			input.add(new HuffmanNode(ch, freq));
+//			input.get(count).setSymbol(ch);
+//			input.get(count).setFreq(freq);
+//			arrayOfChar[count] = ch;
+//			arrayOfFreq[count] = freq;
+//			//System.out.println(input.get(count).toString());
+//			//outputStream.println(input.get(count).toString());
+//			count++;
+//		}
+//		inputStream.close();
+//		//outputStream.close();
+//		System.out.println(Arrays.toString(arrayOfChar));
+//		System.out.println(Arrays.toString(arrayOfFreq));
+//		System.out.println(arrayOfFreq.length == arrayOfChar.length);
+//		PriorityQueue<HuffmanNode> huffPQ2 = huff(arrayOfChar, arrayOfFreq, n);
 
-		// char[] charArray = { 'a', 'b', 'c', 'd', 'e', 'f' };
-		// int[] charFreq = { 5, 9, 12, 13, 16, 45 };
-		//
-		// char[] charArray2 = { 'd', 'e', 'f', 'g', 'h', 'i' };
-		// int[] charFreq2 = { 5, 7, 10, 15, 20, 45 };
-		// PriorityQueue<HuffmanNode> huffPQ = huff(charArray, charFreq,
-		// charArray.length);
-		// System.out.println("Size: " + pq.size());
+		 char[] charArray = { 'a', 'b', 'c', 'd', 'e', 'f' };
+		 int[] charFreq = { 5, 9, 12, 13, 16, 45 };
+		 char[] charArray2 = { 'd', 'e', 'f', 'g', 'h', 'i' };
+		 int[] charFreq2 = { 5, 7, 10, 15, 20, 45 };
+		 PriorityQueue<HuffmanNode> huffPQ = huff(charArray, charFreq, charArray.length);
+		 System.out.println("Size: " + pq.size());
 		// PriorityQueue<HuffmanNode> huffPQ2 = huff(charArray2, charFreq2, n);
-		//
+		
 		printCode(pq.peek(), "");
 		wepl(record);
-		print2DUtil(pq.peek(), 0);
+		printTree(pq.peek(), 0);
 		System.out.println();
 
 	}

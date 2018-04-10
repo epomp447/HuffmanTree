@@ -4,7 +4,7 @@ public class Record {
 		 int frequency;
 		 char symbol;
 		 String str;
-		public Record( char c,int f,String s) {
+		public Record(char c,int f,String s) {
 			this.frequency = f;
 			this.symbol = c; 
 			this.str = s;
