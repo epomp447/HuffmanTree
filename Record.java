@@ -1,4 +1,4 @@
-
+//Record object holds the data of each HuffmanNode Object 
 public class Record {
 	
 		 int frequency;
