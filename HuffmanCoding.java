@@ -1,3 +1,16 @@
+
+/**
+*HuffmanCoding is an implementation of the popular algorithm
+*for text compression
+*
+* <p>
+*  Date: April 16, 2018
+*</p>
+*
+* @author Evan Pomponio
+* 
+**/
+
 import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.io.FileInputStream;
@@ -9,10 +22,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class HuffmanCoding {
-	public static int n = 26;// size of alphabet
-
-	// node class is the basic structure
-	// of each node present in the huffman - tree.
+	
+	/*
+	 * HuffmanNode class is the basic structure of each node present in the Huffman
+	 * tree.
+	 */
 	public static class HuffmanNode {
 
 		int data;
@@ -21,50 +35,99 @@ public class HuffmanCoding {
 		HuffmanNode left;
 		HuffmanNode right;
 
+		/**
+		 * No argument constructor initializing all fields to zero.
+		 */
 		HuffmanNode() {
-
 		}
 
+		/**
+		 * Constructor for HuffmanNode Object
+		 * 
+		 * @param symbol
+		 * @param data
+		 */
 		HuffmanNode(char ch, int freq) {
 			this.symbol = ch;
 			this.data = freq;
 		}
 
+		/**
+		 * mutator for symbol
+		 * 
+		 * @param symbol
+		 **/
 		void setSymbol(char ch) {
 			this.symbol = ch;
 		}
 
+		/**
+		 * mutator for frequency
+		 * 
+		 * @param data
+		 **/
 		void setFreq(int freq) {
 			this.data = freq;
 		}
 
+		/**
+		 * Accessor for symbol
+		 * 
+		 * @return char symbol
+		 **/
 		char getSymbol() {
 			return symbol;
 		}
 
+		/**
+		 * Accessor for frequency
+		 * 
+		 * @return int data
+		 **/
 		int getFreq() {
 			return data;
 		}
 
+		/**
+		 * Returns a string of instance Variables for HuffmanNode
+		 * 
+		 * @return String Format
+		 */
 		public String toString() {
 			String STR = "Symbol: " + this.getSymbol() + "\nFrequency: " + this.getFreq();
 			return STR;
 		}
 	}
 
-	// comparator class helps to compare the node
-	// on the basis of one of its attribute.
-	// Here we will be compared
-	// on the basis of data values of the nodes.
+	/**
+	 * MyComparator class helps to compare the node on the basis of one of its
+	 * attribute. Here we will make our comparison on the basis of data values of
+	 * the nodes.
+	 **/
 	public static class MyComparator implements Comparator<HuffmanNode> {
+		/**
+		 * compare returns a negative if HuffmanNode x less than HuffmanNode y, 0 if
+		 * they are equal, and a positive if HuffmanNode x greater than HuffmanNode y
+		 * 
+		 * @param HuffmanNode
+		 *            x
+		 * @param HuffmanNode
+		 *            y
+		 * @return int MyComparator
+		 **/
 		public int compare(HuffmanNode x, HuffmanNode y) {
 			return x.data - y.data;
 		}
 	}
 
-	// recursive function to print the
-	// huffman-code through the tree traversal.
-	// Here s is the huffman - code generated.
+	/**
+	 * Recursive function to print the Huffman Code through the tree traversal. Here
+	 * s is the Huffman code generated. And root is a reference to the root of a
+	 * binary tree.
+	 * 
+	 * @param root
+	 * @param s
+	 */
 	public static void printCode(HuffmanNode root, String s) {
 
 		// base case; if the left and right are null
@@ -87,25 +150,35 @@ public class HuffmanCoding {
 
 	}
 
-	public static ArrayList<Record> record = new ArrayList<Record>();//array to hold the record of each HuffmanNode
+	/**
+	 * Array to hold the record of each HuffmanNode
+	 */
+	public static ArrayList<Record> record = new ArrayList<Record>();
 
-	// method that records the Frequency, Symbol,
-	// and binary representation each of huffmanNode
-	public static void code(HuffmanNode root, String s) {
-
-		Integer freq = root.getFreq();
-		Character ch = root.getSymbol();
+	/**
+	 * code Method that records the Frequency, Symbol, and Binary representation of 
+	 * each HuffmanNode. 
+	 * @param node
+	 * @param s 
+	 **/
+	public static void code(HuffmanNode node, String s) {
+		Integer freq = node.getFreq();
+		Character ch = node.getSymbol();
 		String hc = s;
 		Record r = new Record(ch, freq, hc);
 		record.add(r);
-
-		return;
 	}
-
-
+	/**
+	 * huff Method returns a reference to the Huffman tree for these keys with these frequencies
+	 * by making a min-priority-queue(min-heap). 
+	 * @param char [] ch
+	 * @param int [] f
+	 * @param int n
+	 * @return PriorityQueue<HuffmanNode> q
+	 **/
 	public static PriorityQueue<HuffmanNode> huff(char[] ch, int[] f, int n) {
-		// creating a priority queue q.
-		// makes a min-priority queue(min-heap).
+		// initializing a priority-queue q which takes arguments n which is the size of the alphabet.
+		// and the Comparator that will be used to order this priority queue
 		PriorityQueue<HuffmanNode> q = new PriorityQueue<HuffmanNode>(n, new MyComparator());
 
 		for (int i = 0; i < n; i++) {
@@ -121,28 +194,25 @@ public class HuffmanCoding {
 			hn.right = null;
 
 			// add functions adds
-			// the huffman node to the queue.
+			// the HuffmanMode to the queue.
 			q.add(hn);
 
 		}
 
-		// System.out.println("Size: " + pq.size());
+		
 		// create a root node
 		HuffmanNode root = null;
 
-		// Here we will extract the two minimum value
-		// from the heap each time until
-		// its size reduces to 1, extract until
-		// all the nodes are extracted.
+		// Here we will extract the two minimum values
+		// from the priority-queue each time until
+		// its size reduces to 1, 
 		while (q.size() > 1) {
 
 			// first min extract.
-			HuffmanNode x = q.peek();
-			q.poll();
+			HuffmanNode x = q.poll();
 
 			// second min extarct.
-			HuffmanNode y = q.peek();
-			q.poll();
+			HuffmanNode y = q.poll();
 
 			// new node f which is equal
 			HuffmanNode sum = new HuffmanNode();
@@ -166,31 +236,38 @@ public class HuffmanCoding {
 
 		}
 		return q;
-
 	}
-
+	
+/**
+ * wepl function takes as parameter a reference to a binary tree and returns
+ * the weighted average, path length of the leaves,
+ * the percent saving in average bits per character over a fixed length binary code.
+ * @param recs
+ */
 	public static void wepl(ArrayList<Record> recs) {
 
 		int charWeights = 0;// frequency of each character
 		double weightedAvg = 0;// sum of the frequency of each character
 		int maxBitsASCII = 0;// number of bits required to encode an ASCII file
 		int maxBitsUnicode = 0;// number of bits required to encode an Unicode file
-		double bitsUsed = 0;// number of bits required to encode a 'huffman' file
+		double bitsUsed = 0;// number of bits required to encode with Huffman algorithm
 		for (int i = 0; i < recs.size(); i++) {
 			charWeights += recs.get(i).getFreq();
 		}
+		System.out.println("\n\tWeighted Averages:");
 		for (int i = 0; i < recs.size(); i++) {
 			weightedAvg = (double) recs.get(i).getFreq() / charWeights;
 			System.out.printf("AVG= " + recs.get(i).getSymbol() + " :   %.4f\n", weightedAvg);
 		}
+		System.out.println("\n\tPath Lengths:");
 		for (int i = 0; i < recs.size(); i++) {
 			int len = recs.get(i).getHuffman().length();
-			System.out.println("Path Length: " + recs.get(i).getSymbol() + " = " + len);
+			System.out.println(recs.get(i).getSymbol() + " = " + len);
 		}
 		for (int i = 0; i < recs.size(); i++) {
 			bitsUsed += recs.get(i).getHuffman().length() * recs.get(i).getFreq();
-			maxBitsASCII += recs.get(i).getFreq() * 8;// ASCII is 8 bit binary
-			maxBitsUnicode += recs.get(i).getFreq() * 16;// Unicode is 16 bit binary
+			maxBitsASCII += recs.get(i).getFreq() * 8;// ASCII is fixed length 8 bit binary
+			maxBitsUnicode += recs.get(i).getFreq() * 16;// Unicode is fixed length 16 bit binary
 
 		}
 		System.out.println("ASCII Bits Used : " + maxBitsASCII);
@@ -203,15 +280,20 @@ public class HuffmanCoding {
 		System.out.printf("Space Savings Compared to Unicode= %.2f ", 100 - (SavingsUnicode * 100));
 		System.out.print("%\n");
 	}
+/**
+ * COUNT denotes the standard length of the indentation in each subsequent level of the tree
+ */
+	static final int COUNT = 10;
 
-	static int COUNT = 10;// denotes the standard length of the indentation in each subsequent level of
-							// the tree
-
-	// Function to print binary tree horizontally
-	// It does reverse inorder traversal
-	// takes a reference to the root of a binary tree and
-	// a space integer which will be used to indent the graphical
-	// representation of the tree
+	/**
+	 *  printTree function prints binary tree horizontally
+	 *  It does reverse inorder traversal
+	 *  takes a reference to the root of a binary tree and
+	 *  a space integer which will be used to indent the graphical
+	 *  representation of the tree
+	 * @param root
+	 * @param space
+	 */
 	static void printTree(HuffmanNode root, int space) {
 		// Base case
 		if (root == null)
@@ -232,10 +314,13 @@ public class HuffmanCoding {
 		// Process left child
 		printTree(root.left, space);
 	}
-
+	/**
+	 * Size of alphabet
+	 */
+	public static int n = 26;
 	// main function
 	public static void main(String[] args) {
-		System.out.println("\t Huffman Encoding  v1.2 \n\t by Evan Pomponio");
+		System.out.println("\t Huffman Encoding  v1.3 \n\t by Evan Pomponio");
 		System.out.println("Options:");
 		System.out.println("\t(1) Run Demo");
 		System.out.println("\t(2) Run with input.txt");
@@ -248,8 +333,7 @@ public class HuffmanCoding {
 			try {
 				inputStream = new Scanner(
 						new FileInputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\input.txt"));// input
-//				outputStream = new PrintWriter(
-//						new FileOutputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\output.txt"));
+				// outputStream = new PrintWriter( new FileOutputStream("C:\\Users\\SuperSU\\Documents\\Java\\Trees\\src\\output.txt"));
 			} catch (FileNotFoundException e) {// handle FileNotFoundException
 				System.out.println("Problem opening files. Verify input.txt Path and retry");
 				System.exit(0);
@@ -269,12 +353,14 @@ public class HuffmanCoding {
 				arrayOfChar[count] = ch;
 				arrayOfFreq[count] = freq;
 				// System.out.println(input.get(count).toString());
-				//outputStream.println(input.get(count).toString());
+				// outputStream.println(input.get(count).toString());
 				count++;
 			}
 			inputStream.close();
-			//outputStream.close();
+			// outputStream.close();
+			
 			PriorityQueue<HuffmanNode> huffPQ1 = huff(arrayOfChar, arrayOfFreq, arrayOfChar.length);
+			
 			printCode(huffPQ1.peek(), "");
 			wepl(record);
 			System.out.println("\t\n**************Huffman Tree**************\n\n");
@@ -290,7 +376,7 @@ public class HuffmanCoding {
 			huff(charArray, charFreq, charArray.length);
 
 			PriorityQueue<HuffmanNode> huffPQ2 = huff(charArray, charFreq, charArray.length);
-			//System.out.println("Size: " + huffPQ2.size());
+			// System.out.println("Size: " + huffPQ2.size());
 			// huff2(charArray2, charFreq2, n);
 			printCode(huffPQ2.peek(), "");
 			wepl(record);
