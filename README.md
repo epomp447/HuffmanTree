@@ -12,7 +12,7 @@ Huffman Coding is a Widely used technique for compressing data
 
 
 ```
-	 Huffman Encoding  v1.2 
+	 Huffman Encoding  v1.3 
 	 by Evan Pomponio
 Options:
 	(1) Run Demo
@@ -24,18 +24,22 @@ b:101
 f:1100
 e:1101
 d:111
+
+	Weighted Averages:
 AVG= a :   0.4500
 AVG= c :   0.1200
 AVG= b :   0.1300
 AVG= f :   0.0500
 AVG= e :   0.0900
 AVG= d :   0.1600
-Path Length: a = 1
-Path Length: c = 3
-Path Length: b = 3
-Path Length: f = 4
-Path Length: e = 4
-Path Length: d = 3
+
+	Path Lengths:
+a = 1
+c = 3
+b = 3
+f = 4
+e = 4
+d = 3
 ASCII Bits Used : 800
 Unicode Bits Used : 1600
 Actual Bits Used= 224.0
@@ -68,6 +72,5 @@ Space Savings Compared to Unicode= 86.00 %
           a,45
 
  process completed
-	
  
  ```
